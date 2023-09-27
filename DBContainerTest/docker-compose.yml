@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  test-db-server:
+    image: "postgres:11.12-alpine"
+    container_name: test-db-server
+    environment:
+      POSTGRES_USER: pepito
+      POSTGRES_PASSWORD: Abc.123456
+      POSTGRES_DB: test
+    ports:
+      - 5432:5432
+    networks:
+      - test-network
+  test-db-admin:
+    image: dpage/pgadmin4
+    container_name: test-db-admin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@test.com
+      PGADMIN_DEFAULT_PASSWORD: Abc.123456
+    ports:
+      - 6060:80
+    networks:
+      - test-network
+networks:
+  test-network:
+    driver: bridge
